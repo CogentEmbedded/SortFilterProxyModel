@@ -49,8 +49,8 @@ add_library(SortFilterProxyModel OBJECT
 
 target_link_libraries(SortFilterProxyModel
     PRIVATE
-        Qt::Core
-        Qt::Qml
+        Qt${QT_VERSION_MAJOR}::Core
+        Qt${QT_VERSION_MAJOR}::Qml
 )
 
 if ((MSVC) AND (MSVC_VERSION GREATER_EQUAL 1914))
@@ -59,6 +59,6 @@ endif()
 
 target_include_directories(SortFilterProxyModel PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}
-    $<TARGET_PROPERTY:Qt::Core,INTERFACE_INCLUDE_DIRECTORIES>
-    $<TARGET_PROPERTY:Qt::Qml,INTERFACE_INCLUDE_DIRECTORIES>
+    $<TARGET_PROPERTY:Qt${QT_VERSION_MAJOR}::Core,INTERFACE_INCLUDE_DIRECTORIES>
+    $<TARGET_PROPERTY:Qt${QT_VERSION_MAJOR}::Qml,INTERFACE_INCLUDE_DIRECTORIES>
 )
