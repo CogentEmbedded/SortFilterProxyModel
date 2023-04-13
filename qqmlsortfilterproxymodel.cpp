@@ -107,17 +107,29 @@ void QQmlSortFilterProxyModel::setFilterRoleName(const QString& filterRoleName)
 
 QString QQmlSortFilterProxyModel::filterPattern() const
 {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
     return filterRegularExpression().pattern();
+#else
+    return filterRegExp().pattern();
+#endif
 }
 
 void QQmlSortFilterProxyModel::setFilterPattern(const QString& filterPattern)
 {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
     QRegularExpression regExp = filterRegularExpression();
+#else
+    QRegExp regExp = filterRegExp();
+#endif
     if (regExp.pattern() == filterPattern)
         return;
 
     regExp.setPattern(filterPattern);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
     QSortFilterProxyModel::setFilterRegularExpression(regExp);
+#else
+    QSortFilterProxyModel::setFilterRegExp(regExp);
+#endif
     Q_EMIT filterPatternChanged();
 }
 
